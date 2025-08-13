@@ -1,5 +1,3 @@
-![svg1](./images/svg1.svg)
-
 <p align="center">
     <img src="./logo.png" alt="Decipher Snippets logo" width="150">
 </p>
