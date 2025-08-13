@@ -1,0 +1,572 @@
+{
+  "name": "deciphersnips",
+  "displayName": "Decipher BS Snippets",
+  "description": "Custom XML Snippets for Decipher",
+  "version": "0.0.1",
+  "publisher": "Boodooa-Monish",
+  "repository": "https://github.com/BoodooaMonish/deciphersnips",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Snippets",
+    "Keymaps"
+  ],
+  "activationEvents": [
+    "onLanguage:xml"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "deciphersnips.addBold",
+        "category": "Decipher",
+        "title": "Formatting - Bold",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.addItalic",
+        "category": "Decipher",
+        "title": "Formatting - Italic",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.addUnderline",
+        "category": "Decipher",
+        "title": "Formatting - Underline",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barifr",
+        "category": "Decipher",
+        "title": "Bari - French",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barien",
+        "category": "Decipher",
+        "title": "Bari - English",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.baride",
+        "category": "Decipher",
+        "title": "Bari - German",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.baries",
+        "category": "Decipher",
+        "title": "Bari - Spanish",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barifi",
+        "category": "Decipher",
+        "title": "Bari - Finnish",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barida",
+        "category": "Decipher",
+        "title": "Bari - Danish",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barinl",
+        "category": "Decipher",
+        "title": "Bari - Dutch",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.bariit",
+        "category": "Decipher",
+        "title": "Bari - Italian",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barisv",
+        "category": "Decipher",
+        "title": "Bari - Swedish",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.baripl",
+        "category": "Decipher",
+        "title": "Bari - Polish",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.barino",
+        "category": "Decipher",
+        "title": "Bari - Norwegian",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.radio",
+        "category": "Decipher",
+        "title": "Question - Single Select / Radio",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.radiobtn",
+        "category": "Decipher",
+        "title": "Question - Button Single Select / Button Radio",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.radiobtngrid",
+        "category": "Decipher",
+        "title": "Question - Button Single Select Grid / Button Grid Radio",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.ratingscale",
+        "category": "Decipher",
+        "title": "Question - Rating Scale",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.cardrating",
+        "category": "Decipher",
+        "title": "Question - Card Rating",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.checkbox",
+        "category": "Decipher",
+        "title": "Question - Multi Select / Checkbox",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.checkboxbtn",
+        "category": "Decipher",
+        "title": "Question - Button Multi Select / Button Checkbox",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.checkboxbtngrid",
+        "category": "Decipher",
+        "title": "Question - Button Multi Select Grid / Button Grid Checkbox",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.singlecardsort",
+        "category": "Decipher",
+        "title": "Question - Single Select Card Sort",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.multicardsort",
+        "category": "Decipher",
+        "title": "Question - Multi Select Card Sort",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.select",
+        "category": "Decipher",
+        "title": "Question - Select / Dropdown",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.ranksort",
+        "category": "Decipher",
+        "title": "Question - Rank Sort",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.starrating",
+        "category": "Decipher",
+        "title": "Question - Star Rating",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.sliderrating",
+        "category": "Decipher",
+        "title": "Question - Slider Rating",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.textarea",
+        "category": "Decipher",
+        "title": "Question - Textarea",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.text",
+        "category": "Decipher",
+        "title": "Question - Text",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.datepicker",
+        "category": "Decipher",
+        "title": "Question - Date Picker",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.number",
+        "category": "Decipher",
+        "title": "Question - Number",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.slider",
+        "category": "Decipher",
+        "title": "Question - Slider",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.sliderdecimal",
+        "category": "Decipher",
+        "title": "Question - Slider Decimal",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.autosum",
+        "category": "Decipher",
+        "title": "Question - Autosum",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.rating",
+        "category": "Decipher",
+        "title": "Question - Rating",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.texthighlighter",
+        "category": "Decipher",
+        "title": "Question - Text Highlighter",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.autosuggest",
+        "category": "Decipher",
+        "title": "Question - Autosuggest",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.html",
+        "category": "Decipher",
+        "title": "Question - Html / Descriptive Content",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.imagemap",
+        "category": "Decipher",
+        "title": "Question - Image Map",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.mediaeval",
+        "category": "Decipher",
+        "title": "Question - Media Evaluator",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.mediatesti",
+        "category": "Decipher",
+        "title": "Question - Media Testimonial",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.row",
+        "category": "Decipher",
+        "title": "Element - Row",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.rowmatch",
+        "category": "Decipher",
+        "title": "Element - Row Match Label",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.col",
+        "category": "Decipher",
+        "title": "Element - Col",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.colmatch",
+        "category": "Decipher",
+        "title": "Element - Col Match Label",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.choice",
+        "category": "Decipher",
+        "title": "Element - Choice",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.choicematch",
+        "category": "Decipher",
+        "title": "Element - Choice Match Label",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.loop",
+        "category": "Decipher",
+        "title": "Block - Loop",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.loopn",
+        "category": "Decipher",
+        "title": "Block - Loop (No Conditions)",
+        "enablement": "editorLangId == xml"
+      },
+      {
+        "command": "deciphersnips.group",
+        "category": "Decipher",
+        "title": "Block - Group",
+        "enablement": "editorLangId == xml"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "deciphersnips.radio",
+        "key": "Ctrl+1",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+1",
+        "linux": "Ctrl+1",
+        "mac": "Ctrl+1"
+      },
+      {
+        "command": "deciphersnips.radiobtn",
+        "key": "Ctrl+Alt+1",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Alt+1",
+        "linux": "Ctrl+Alt+1",
+        "mac": "Ctrl+Alt+1"
+      },
+      {
+        "command": "deciphersnips.singlecardsort",
+        "key": "Ctrl+Shift+1",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Shift+1",
+        "linux": "Ctrl+Shift+1",
+        "mac": "Ctrl+Shift+1"
+      },
+      {
+        "command": "deciphersnips.checkbox",
+        "key": "Ctrl+2",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+2",
+        "linux": "Ctrl+2",
+        "mac": "Ctrl+2"
+      },
+      {
+        "command": "deciphersnips.checkboxbtn",
+        "key": "Ctrl+Alt+2",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Alt+2",
+        "linux": "Ctrl+Alt+2",
+        "mac": "Ctrl+Alt+2"
+      },
+      {
+        "command": "deciphersnips.multicardsort",
+        "key": "Ctrl+Shift+2",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Shift+2",
+        "linux": "Ctrl+Shift+2",
+        "mac": "Ctrl+Shift+2"
+      },
+      {
+        "command": "deciphersnips.cardrating",
+        "key": "Ctrl+3",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+3",
+        "linux": "Ctrl+3",
+        "mac": "Ctrl+3"
+      },
+      {
+        "command": "deciphersnips.select",
+        "key": "Ctrl+0",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+0",
+        "linux": "Ctrl+0",
+        "mac": "Ctrl+0"
+      },
+      {
+        "command": "deciphersnips.ranksort",
+        "key": "Ctrl+6",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+6",
+        "linux": "Ctrl+6",
+        "mac": "Ctrl+6"
+      },
+      {
+        "command": "deciphersnips.sliderrating",
+        "key": "Ctrl+Shift+0",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Shift+0",
+        "linux": "Ctrl+Shift+0",
+        "mac": "Ctrl+Shift+0"
+      },
+      {
+        "command": "deciphersnips.textarea",
+        "key": "Ctrl+4",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+4",
+        "linux": "Ctrl+4",
+        "mac": "Ctrl+4"
+      },
+      {
+        "command": "deciphersnips.text",
+        "key": "Ctrl+Shift+4",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Shift+4",
+        "linux": "Ctrl+Shift+4",
+        "mac": "Ctrl+Shift+4"
+      },
+      {
+        "command": "deciphersnips.number",
+        "key": "Ctrl+5",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+5",
+        "linux": "Ctrl+5",
+        "mac": "Ctrl+5"
+      },
+      {
+        "command": "deciphersnips.slider",
+        "key": "Ctrl+Shift+5",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Shift+5",
+        "linux": "Ctrl+Shift+5",
+        "mac": "Ctrl+Shift+5"
+      },
+      {
+        "command": "deciphersnips.rating",
+        "key": "Ctrl+Alt+5",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Alt+5",
+        "linux": "Ctrl+Alt+5",
+        "mac": "Ctrl+Alt+5"
+      },
+      {
+        "command": "deciphersnips.html",
+        "key": "Ctrl+Alt+4",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+Alt+4",
+        "linux": "Ctrl+Alt+4",
+        "mac": "Ctrl+Alt+4"
+      },
+      {
+        "command": "deciphersnips.row",
+        "key": "Ctrl+7",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+7",
+        "linux": "Ctrl+7",
+        "mac": "Ctrl+7"
+      },
+      {
+        "command": "deciphersnips.rowmatch",
+        "key": "Alt+7",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+7",
+        "linux": "Alt+7",
+        "mac": "Alt+7"
+      },
+      {
+        "command": "deciphersnips.col",
+        "key": "Ctrl+8",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+8",
+        "linux": "Ctrl+8",
+        "mac": "Ctrl+8"
+      },
+      {
+        "command": "deciphersnips.colmatch",
+        "key": "Alt+8",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+8",
+        "linux": "Alt+8",
+        "mac": "Alt+8"
+      },
+      {
+        "command": "deciphersnips.choice",
+        "key": "Ctrl+9",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Ctrl+9",
+        "linux": "Ctrl+9",
+        "mac": "Ctrl+9"
+      },
+      {
+        "command": "deciphersnips.choicematch",
+        "key": "Alt+9",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+9",
+        "linux": "Alt+9",
+        "mac": "Alt+9"
+      },
+      {
+        "command": "deciphersnips.loop",
+        "key": "Alt+l",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+l",
+        "linux": "Alt+l",
+        "mac": "Alt+l"
+      },
+      {
+        "command": "deciphersnips.loopn",
+        "key": "Alt+Shift+l",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+Shift+l",
+        "linux": "Alt+Shift+l",
+        "mac": "Alt+Shift+l"
+      },
+      {
+        "command": "deciphersnips.group",
+        "key": "Alt+g",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+g",
+        "linux": "Alt+g",
+        "mac": "Alt+g"
+      },
+      {
+        "command": "deciphersnips.addBold",
+        "key": "Alt+b",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+b",
+        "linux": "Alt+b",
+        "mac": "Alt+b"
+      },
+      {
+        "command": "deciphersnips.addItalic",
+        "key": "Alt+i",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+i",
+        "linux": "Alt+i",
+        "mac": "Alt+i"
+      },
+      {
+        "command": "deciphersnips.addUnderline",
+        "key": "Alt+u",
+        "when": "editorHasSelection && editorLangId == xml",
+        "win": "Alt+u",
+        "linux": "Alt+u",
+        "mac": "Alt+u"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.101.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^3.6.0",
+    "jsdom": "^26.1.0"
+  }
+}
