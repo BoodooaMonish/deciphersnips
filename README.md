@@ -1,22 +1,5 @@
-<style type="text/css">
-blockquote{
-padding-top: 16px;
-padding-bottom: 16px;
-margin-bottom:16px;
-}
-blockquote.tip{
-background-color: #06d6a033;
-}
-blockquote.warn{
-background-color: #ffd16633;
-}
-blockquote.error{
-background-color: #ef476f33;
-}
-blockquote h4{
-margin-top:12px;
-}
-</style>
+![svg1](./images/svg1.svg)
+
 <p align="center">
     <img src="./logo.png" alt="Decipher Snippets logo" width="150">
 </p>
