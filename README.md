@@ -17,7 +17,7 @@ This extension includes <u>almost</u> all of decipher's questions, tags and attr
 - Questions are called using commands from either keyboard shortcuts or from the vscode command palette.
 - Tags and Attributes are called using the VScode autocompletion tool, meaning when you type an attribute's name, a dropdown menu will appear showing choices inwhich you can select to add the attributes you want faster.
 
-<blockquote class="tip">💡 <strong>Tip:</strong> When creating questions in XML, it is recommanded to use keyboard shortcut commands for a faster workflow instead of using VScode command palette <code>Ctrl + Shift + p</code> to call each question type command. <br/> However, if you've forgot the name of a command during scripting, you can easily use the VScode command palette to search for it.</blockquote>
+<blockquote class="tip">💡 <strong>Tip:</strong> When creating questions in XML, it is recommended to use keyboard shortcut commands for a faster workflow instead of using VScode command palette <code>Ctrl + Shift + p</code> to call each question type command. <br/> However, if you've forgot the name of a command during scripting, you can easily use the VScode command palette to search for it.</blockquote>
 
 ## Table of Contents
 
@@ -140,7 +140,7 @@ Once everything has been aligned, highlight all of the question's components and
 
 3. **Calling the elements commands**
 
-The third step in the workflow 2 is different from that of the workflow 1 as we call each element command first instead of calling it as the last step. <br/>Use the columns in the [Keyboard Commands](#keyboard-commands) to check which keyboard shortcut/Command Name is used for which element.
+The third step in the workflow 2 is different from that of the workflow 1 as we call each element's command first instead of calling it as the last step. <br/>Use the columns in the [Keyboard Commands](#keyboard-commands) to check which keyboard shortcut/Command Name is used for which element.
 
 The example below shows the command for each element being called for a grid style single select question.
 
@@ -209,9 +209,10 @@ Below, you will find a list of keyboard shortcuts each with these three columns:
 | --- | --- | --- |
 | `Ctrl + 5`| Number Question | Rows(optional) then Cols(optional) |
 | `Ctrl + Shift + 5`| Slider Question | Rows(optional) |
-| `Ctrl + Alt + 5`| Button Rating Question | Rows(optional) |
+| `Ctrl + Alt + 5`| Button Rating Question | Choices then Rows(optional) |
 | --- | --- | --- |
 | `Ctrl + 6`| Ranksort Question | Choices then Rows |
+| `Ctrl + Shift + 6`| Slider Rating Question | Rows(optional) |
 | --- | --- | --- |
 | `Ctrl + 7`| Simple Row Creation | --- |
 | `Alt + 7`| Row Creation with matched labels | --- |
@@ -221,7 +222,6 @@ Below, you will find a list of keyboard shortcuts each with these three columns:
 | `Alt + 9`| Choice Creation with matched labels | --- |
 | --- | --- | --- |
 | `Ctrl + 0`| Dropdown Select Question | Choices then Rows(optional) then Cols(optional) |
-| `Ctrl + Shift + 0`| Slider Rating Question | Rows(optional) |
 
 ### Formatting Shortcuts
 

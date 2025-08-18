@@ -401,11 +401,11 @@
       },
       {
         "command": "deciphersnips.sliderrating",
-        "key": "Ctrl+Shift+0",
+        "key": "Ctrl+Shift+6",
         "when": "editorHasSelection && editorLangId == xml",
-        "win": "Ctrl+Shift+0",
-        "linux": "Ctrl+Shift+0",
-        "mac": "Ctrl+Shift+0"
+        "win": "Ctrl+Shift+6",
+        "linux": "Ctrl+Shift+6",
+        "mac": "Ctrl+Shift+6"
       },
       {
         "command": "deciphersnips.textarea",
