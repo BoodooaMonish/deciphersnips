@@ -514,8 +514,8 @@ For more information on how to add themevar elements to your project, use this [
 | `themevar.border-radius` | <themevar name="border-radius"\></themevar\> |The default border radius for the foreground and all buttons |
 | `themevar.foreground-border-radius` | <themevar name="foreground-border-radius"\></themevar\> |The border radius for the foreground only |
 | `themevar.breakpoint` | <themevar name="breakpoint"\></themevar\> |The width in which a device is considered a desktop (default is "768px") |
-| `themevar.desktop` | \@media \@desktop {<br>&nbsp;&nbsp;${1:.desktop-only-class {<br>&nbsp;&nbsp;&nbsp;&nbsp;color: blue;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>} |A boolean value used to declare desktop-only styles. |
-| `themevar.mobile` | \@media \@mobile {<br>&nbsp;&nbsp;${1:.mobile-only-class {<br>&nbsp;&nbsp;&nbsp;&nbsp;color: blue;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>} |A boolean value used to declare mobile-only styles. |
+| `themevar.desktop` | <themevar name="desktop"\>~"(min-width:786px){p {color:blue;}}"</themevar\> |A boolean value used to declare desktop-only styles. |
+| `themevar.mobile` | <themevar name="mobile"\>~"(max-width:786px){p {color:blue;}}"</themevar\> |A boolean value used to declare mobile-only styles. |
 | `themevar.foreground-width` | <themevar name="foreground-width"\></themevar\> |The maximum width for the survey (default is "960px") |
 | `themevar.foreground-padding-top-bottom` | <themevar name="foreground-padding-top-bottom"\></themevar\> |The foreground top/bottom padding |
 | `themevar.foreground-padding-left-right-desktop` | <themevar name="foreground-padding-left-right-desktop"\></themevar\> |The foreground left/right padding on desktop devices |
@@ -662,7 +662,8 @@ These custom snippets were added according to the most used reusable xml codes f
 | -------- | -------------- | ----------------- |
 | `groupElementPython` |  ---  | Group Rows Function, uses python to group rows together.|
 | `limitNumber` |  ---  | Limit Number Module, block number after the specified value.  <br>Default: Blocks 2 Numbers  <br>Note: Ensure Question is a number question of the page as some survey disguise number question as text question on the survey page.|
-| `timespentAllPages` |  ---  | Adds a virtual float question which add a timespent value for all pages on the survey.|
+| `pagetime` |  ---  | Adds a virtual float question which add a timespent value for all pages on the survey.|
+| `pagetimeblock` |  ---  | Adds a template block for calculating the timespent between a list of questions.|
 | `supportTagFR` |  ---  | Adds the support tag for the FR cluster.|
 | `removeAutoWidth` | ss:questionClassNames="skipAutosize" | Removes the auto width on grid type questions.  <br>Can be optionally combined with surveyDisplay="desktop" and ss:listDisplay="0".|
 | `zoomMobileMeta` |  ---  | The script tag that will enable native zoom on mobile.|
@@ -691,7 +692,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `exclu` | exclusive="1" randomize="0" | Exclusive and No Randomize attributes|
 | `oe` | open="1" openSize="25" randomize="0" | Open end textbox attributes|
 | `exec` | <exec\><br><br></exec\> | exec Tag|
-| `when` | when="survey,<br>started,<br>init,<br>virtualInit,<br>finished,<br>returning,<br>verified,<br>virtual,<br>flow,<br>sqlTransfer,<br>sqlTransferInit,<br>submit,<br>autosaveRestored" | CDATA Tag |
+| `when` | when="survey,<br>started,<br>init,<br>virtualInit,<br>finished,<br>returning,<br>verified,<br>virtual,<br>flow,<br>sqlTransfer,<br>sqlTransferInit,<br>submit,<br>autosaveRestored" | Used inside the <exec\> attribute, defines how, where and when the exec is called |
 | `pipe` | [pipe: Q1] | xml pipe|
 | `pipetag` | <pipe label="pipeLabel" capture="labelInReport" title="titleText"\></pipe\> | The <pipe\> element is used to display information conditionally. <br>Tag Version|
 | `pipedetailed` | [pipe: Q1 lower,upper,title,capitalize] | The [pipe : QuestionName] element is used to display information conditionally. <br>Inline Version|
@@ -706,12 +707,12 @@ These custom snippets were added according to the most used reusable xml codes f
 | `markers` | markers="qual" | The makers attribute enables you to set additional markers when terminating the participant. <br>Used inside <term\> element.|
 | `marker` | <marker name="my_marker" cond="Q1.r1"/\> | The <marker\> element is used to set markers in a survey. Setting a marker using the <marker\> element is equivalent to using the setMarker function in an <exec\> element.|
 | -------- | -------------- | ----------------- |
-| `comment` | <comment\>Only one answer possible,Multiple answers possible</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the English version|
-| `commentfr` | <comment\>Une seule réponse possible,Plusieurs réponses possibles</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the French version|
-| `commentde` | <comment\>Nur eine Antwort möglich,Mehrere Antworten möglich</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the German version|
-| `commentit` | <comment\>Una sola risposta possibile,Sono possibili più risposte</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the Italian version|
-| `commentes` | <comment\>Una sola respuesta posible,Múltiples respuestas posibles</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the Spanish version|
-| `commentnl` | <comment\>Eén antwoord mogelijk,Meerdere antwoorden mogelijk</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute./n/nThis is the Dutch version|
+| `comment` | <comment\>Only one answer possible,Multiple answers possible</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the English version|
+| `commentfr` | <comment\>Une seule réponse possible,Plusieurs réponses possibles</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the French version|
+| `commentde` | <comment\>Nur eine Antwort möglich,Mehrere Antworten möglich</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the German version|
+| `commentit` | <comment\>Una sola risposta possibile,Sono possibili più risposte</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the Italian version|
+| `commentes` | <comment\>Una sola respuesta posible,Múltiples respuestas posibles</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the Spanish version|
+| `commentnl` | <comment\>Eén antwoord mogelijk,Meerdere antwoorden mogelijk</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the Dutch version|
 | -------- | -------------- | ----------------- |
 | `note` | <note\>COMMENT</note\> | The <note\> element can be used to leave notes in a survey that are only displayed in the survey builder and the code itself.|
 | `block` | <block label="b1"\><br><br></block\> | The <block\> tag is a great way to create sections in your survey. If you have a large number of questions that should be seen by the same type of participants, instead of writing a condition on each question, you can wrap the questions in a <block\> with the condition.|
@@ -788,14 +789,14 @@ These custom snippets were added according to the most used reusable xml codes f
 | `fingerprint` | fingerprint="none,all,etag,browser,flash,html5" | The fingerprint attribute can be set to "none", "all", "etag", "browser", "flash", or "html5" and controls which variables are captured for fingerprinting participants.|
 | `forbiddenCountries` | forbiddenCountries="us,fr,de" | The forbiddenCountries attribute controls which countries should be forbidden from taking the survey. Specify the forbidden countries using their lower-case ISO 3166-1 alpha-2 country code|
 | `loadData` | loadData="source" | The loadData attribute allows you to load a participant's data based on a variable so that they can modify their existing answers.|
-| `loggedInCanSubmit` | loggedInCanSubmit  ="1" | The loggedInCanSubmit attribute enables staff members and logged-in users to submit data.|
+| `loggedInCanSubmit` | loggedInCanSubmit="1" | The loggedInCanSubmit attribute enables staff members and logged-in users to submit data.|
 | `secure` | secure="1" | The secure attribute is a boolean value that allows you to force participants to use HTTPS at all times when taking the survey.|
 | `setup` | setup="term,quota,time,decLang" | The setup attribute is a comma-separated list of options to configure your project. This attribute accepts any of the following: quota, time, decLang and term.|
 | `disableBackButton` | ss:disableBackButton="1" | The ss:disableBackButton attribute is a boolean value that controls whether the browser\'s "Back" button should be enabled for participants.|
 | `state` | state="dev,testing,live,closed" | The state attribute sets the survey status.|
 | `unique` | unique="1,none,rows,rows\,cols" | The unique attribute is used to limit access to the survey.|
 | `uniqueOnly` | uniqueOnly="1" | The uniqueOnly attribute is a boolean value that enables you to use the unique attribute mentioned above without the use of the invited.txt file.|
-| `enableNavigation ` | ss:enableNavigation  ="1" | The ss:enableNavigation attribute is a boolean value that enables you to add a "Back" button to the survey.|
+| `enableNavigation ` | ss:enableNavigation="1" | The ss:enableNavigation attribute is a boolean value that enables you to add a "Back" button to the survey.|
 
 ## Attributes Snippets for Device Settings
 
@@ -830,7 +831,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `choiceShuffle` | choiceShuffle="flip,rflip,rotate,rrotate" | The choiceShuffle attribute allows you to specify the randomization order of <choice\> elements.|
 | `colCond` | colCond="Q1.cols\[col.index\]" | The colCond attribute allows you to specify condition logic that will show or hide each <col\> element.|
 | `colGroups` | colGroups="report,survey,restrict" | The colGroups attribute allows you to specify where the <group\> element associated with each column appears.|
-| `colLegend` | colLegend="none,both,top,bottom,group,beforeGroup" | The colLegend attribute allows you to specify the placement of the column legend.|
+| `colLegendAtribute` | colLegend="none,both,top,bottom,group,beforeGroup" | The colLegend attribute allows you to specify the placement of the column legend.|
 | `colLegendRows` | colLegendRows="4,7,9" | The colLegendRows attribute allows you to specify additional locations of the column legend.|
 | `colShuffle` | colShuffle="flip,rflip,rotate,rrotate" | The colShuffle attribute allows you to specify the randomization order of <col\> elements.|
 | `mobileTabletOnly` | cond="(gv.request.device.isSmartphone() or gv.request.device.isTablet())" | This condition attribute display the corresponding for only mobile and tablets devices.|
@@ -869,9 +870,9 @@ These custom snippets were added according to the most used reusable xml codes f
 
 | Snippet | Resulting Code | Brief Description |
 | -------- | -------------- | ----------------- |
-| `datasource` | <datasource label="db1" <br>title="db name" <br>filename="filename.txt" <br>ourKey="source" <br>datasourceKey="codeid" <br>normalizeKey="none,lower"\></datasource\> | The <datasource\> element is a survey builder-friendly way of merging external data from a tab-delimited file into your survey.|
+| `datasourceBase` | <datasource label="db1" <br>title="db name" <br>filename="filename.txt" <br>ourKey="source" <br>datasourceKey="codeid" <br>normalizeKey="none,lower"\></datasource\> | The <datasource\> element is a survey builder-friendly way of merging external data from a tab-delimited file into your survey.|
 | `filename` | filename="include.dat" | The filename attribute should be set to the name of the tab-delimited file to pull data from.|
-| `title` | title="database description" | Title attribute|
+| `titleAttribute` | title="database description" | Title attribute|
 | `ourKey` | ourKey="id" | The ourKey attribute should be set to the survey variable that uniquely identifies the participants entering the survey (e.g. uuid,source, id, respID, etc...).|
 | `datasourceKey` | datasourceKey="codeid" | The datasourceKey attribute should be set to a column name found in the tab-delimited file that uniquely identifies each row of the data.|
 | `normalizeKey` | normalizeKey="none,lower" | If normalizeKey="lower" is specified, then the values for both attributes, ourKey and datasourceKey, will be transformed into lowercase before being compared.|
@@ -929,14 +930,14 @@ These custom snippets were added according to the most used reusable xml codes f
 | `radio` | <radio label="Q1" optional="0"\><br><br></radio\> | The <radio\> element is a single select question type that allows selections to be made from a list of items.|
 | `select` | <select label="Q1" optional="0"\><br><br></select\> | The <select\> element is a single select question type that allows selections to be made from a dropdown list of items.|
 | `minRanks` | minRanks="1" | The minRanks attribute is an integer value that sets the minimum number of rankings (selections) to be made.|
-| `text` | <text label="Q1" optional="0" size="25"\></text\> | The <text\> element is an open-ended question type that gathers text input from participants such as descriptions, name, email, zip code, etc...|
-| `textarea` | <textarea label="Q1" height="10" optional="0" width="50"\></textarea\> | The <textarea\> element is an open-ended question type that gathers text input from participants. In contrast to the <text\> element, the <textarea\> element produces a multi-line input box.|
+| `text` | <text label="Q1" optional="0" size="25"\><br><br></text\> | The <text\> element is an open-ended question type that gathers text input from participants such as descriptions, name, email, zip code, etc...|
+| `textarea` | <textarea label="Q1" height="10" optional="0" width="50"\><br><br></textarea\> | The <textarea\> element is an open-ended question type that gathers text input from participants. In contrast to the <text\> element, the <textarea\> element produces a multi-line input box.|
 | `width` | width="10" | The width attribute is an integer value that controls the overall width of the <textarea\> element.|
 | `height` | height="50" | The height attribute is an integer value that controls the overall width of the <textarea\> element.|
 | `choice` | <choice label="ch1"\>choiceText</choice\> | The <choice\> element belongs only to the <select\> question type.|
 | `col` | <col label="c1"\>colText</col\> | The <col\> element can be added to any question type to create column headers and expand the number of selections available in a question.|
 | `row` | <row label="r1"\>rowText</row\> | The <row\> element can be added to any question type to expand the number selections available in a question.|
-| `radio=` | radio="1" | The radio attribute is a boolean value that forces the entire column to use radio inputs instead of checkboxes.|
+| `radioAttribute` | radio="1" | The radio attribute is a boolean value that forces the entire column to use radio inputs instead of checkboxes.|
 | `favorite` | favorite ="1" | The favorite attribute is a boolean value that adds special functionality to an entire column.|
 | `legend` | legend="default,right,both,none" | The legend attribute can be set to "default", "right", "both" or "none" to control which side the row's legend text is presented.|
 | `count` | count="1" | The count attribute is an integer value corresponding to the number of children elements to show in a block.|
@@ -993,7 +994,7 @@ These custom snippets were added according to the most used reusable xml codes f
 
 | Snippet | Resulting Code | Brief Description |
 | -------- | -------------- | ----------------- |
-| `loop` | <loop label="loopName" vars="var1"\><br>  <block label="blocLoopName"\><br><br>  </block\><br></loop\> | The <loop\> element is used to cycle through a series of survey elements.|
+| `loop` | <loop label="loopName" vars="var1"\><br>  <block label="blocLoopName"\><br><suspend/\><br><br><suspend/\><br></block\><br></loop\> | The <loop\> element is used to cycle through a series of survey elements.|
 | `looprow` | <looprow label="1"\>Loopvar Tags</looprow\> | The <looprow\> element is used to create an iteration in the loop.|
 | `loopvar` | <loopvar name="var1"\>var name</loopvar\> | The <loopvar\> element is used to create add a variable in the looprow.|
 
@@ -1023,7 +1024,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `after` | after="Q1" | Applies this style only on pages following the page which includes the question label.|
 | `before` | before="Q2" | Applies this style only on pages preceding the page which includes the question label.|
 | `with` | with="Q1" | Applies this style only on pages which display any of the listed questions.|
-| `wrap` | wrap="ready" | If ready, the contents of the style override are wrapped in <script\>and the jQuery ready event.|
+| `wrap` | wrap="ready" | If ready, the contents of the style override are wrapped in <script\> and the jQuery ready event.|
 
 ## Image Attributes Snippets
 
@@ -1106,7 +1107,12 @@ These custom snippets were added according to the most used reusable xml codes f
 | `atmtable:inputs` | atmtable:inputs="1" | Toggles showing the raw inputs (radio or checkbox forms)|
 | `atmtable:row_dividers` | atmtable:row_dividers="1" | Toggles row dividers.|
 | `atmtable:row_dividers_css` | atmtable:row_dividers_css="border:5px solid red;" | Customize the look of the row dividers.|
-| `atmtable:table_css` | atmtable:table_css="width:70\%;" | Customize the overall table for the question grid. <br/\>Useful for setting a width for the question. <br>Be sure to use great care when setting widths, especially for surveys that allow mobile devices.|
+| `atmtable:table_css` | atmtable:table_css="width:70\%;" | Customize the overall table for the question grid. <br>Useful for setting a width for the question. <br>Be sure to use great care when setting widths, especially for surveys that allow mobile devices.|
+
+## Button Rating Attributes Snippets
+
+| Snippet | Resulting Code | Brief Description |
+| -------- | -------------- | ----------------- |
 | `atmrating:order` | atmrating:order="lth,htl" | Adjusts the layout of the buttons to ascending or descending order|
 | `atmrating:legendPosition` | atmrating:legendPosition="Below,Above" | Adjusts the placement of the legend text  to Above or Below|
 | `atmrating:leftLegend` | atmrating:leftLegend="Least" | The text to show for the left-most legend|
@@ -1377,7 +1383,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | -------- | -------------- | ----------------- |
 | `slidernumber:OO_Text` | slidernumber:OO_Text="Prefer not to say" | Adds a no answer/skip option for each item|
 | `slidernumber:offScaleAdjustment` | slidernumber:offScaleAdjustment="-30px" | Sets number of pixels the slider handle should be offset. <br>A negative value will move to the left and positive to the right.|
-| `slidernumber:offScaleText` | slidernumber:offScaleText="<i class="fa-icon-arrow-right"\></i\>}" | Set the text to be shown on the slider handle when off the slider track.|
+| `slidernumber:offScaleText` | slidernumber:offScaleText="<i class='fa-icon-arrow-right'\></i\>}" | Set the text to be shown on the slider handle when off the slider track.|
 | `slidernumber:leftLegend` | slidernumber:leftLegend="Completely Dissatisfied" | Legend text for the left side of the scale|
 | `slidernumber:legendPosition` | slidernumber:legendPosition="Above Slider,Below Slider" | Sets the position of the legends, above the scale or below the scale.|
 | `slidernumber:midLegend` | slidernumber:midLegend="Neutral" | Legend text for the middle side of the scale|
@@ -1420,7 +1426,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `sliderdecimal:showRange` | sliderdecimal:showRange="1" | Shows a colored range on the scale similar to a progress bar. (1 = Show Range, 0 = Hide Range)|
 | `sliderdecimal:OO_Text` | sliderdecimal:OO_Text="Have not heard of this" | Specify the text for the Opt Out option. <br>Requires the raw option ignoreValues="99" attribute in the <float\> tag|
 | `sliderdecimal:offScaleAdjustment` | sliderdecimal:offScaleAdjustment="-30px" | Specify the off scale starting position to accommodate custom images or larger handles.|
-| `sliderdecimal:offScaleText` | sliderdecimal:offScaleText="<i class="fa-icon-arrow-right"\></i\>" | Text to display in the slider when it's off scale (has not been slid).|
+| `sliderdecimal:offScaleText` | sliderdecimal:offScaleText="<i class='fa-icon-arrow-right'\></i\>" | Text to display in the slider when it's off scale (has not been slid).|
 | `sliderdecimal:sliderdecimal_desktop_margin_css` | sliderdecimal:sliderdecimal_desktop_margin_css="margin-bottom:200px;" | Adjust the desktop margins of the slider to accommodate other slider handles.|
 | `sliderdecimal:sliderdecimal_mobile_margin_css` | sliderdecimal:sliderdecimal_mobile_margin_css="margin-top:200px;" | Adjust the mobile margins of the slider to accommodate other slider handles.|
 | `sliderdecimal:input_css` | sliderdecimal:input_css="padding:5px;font-size:32px;" | Configure the CSS style of the input box or value placeholder.|
@@ -1453,7 +1459,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | -------- | -------------- | ----------------- |
 | `hottext:atleast` | hottext:atleast="5" | The number of required highlighted answers that must be selected before the "Continue" button is enabled.|
 | `hottext:atmost` | hottext:atmost="10" | The maximum number of highlighted answers that can be selected.|
-| `hottext:marker_color` | hottext:marker_color="#39B54A" | The color of the marker for the <choice\> element.|
+| `hottext:marker_color` | hottext:marker_color="#39B54A" | The color of the marker for the <choice\> elements.|
 | `hottext:nospace` | hottext:nospace="0" | Determines whether a trailing space is added after the <row\> item.|
 | `hottext:prefix_html` | hottext:prefix_html="pretext" | HTML code to insert before this <row\> element. Values provided here will not be selectable.|
 | `hottext:suffix_html` | hottext:suffix_html="posttext" | HTML code to insert after this <row\> element. Values provided here will not be selectable.|

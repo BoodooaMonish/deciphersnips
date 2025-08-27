@@ -244,12 +244,12 @@ let questionColLegendRow = `<style name='question.col-legend-row'> <![CDATA[
     <\$(tag) class="row row-col-legends row-col-legends-middle \$\{\"GtTenColumns \" if ec.colCount \> 10 else \"\"\}colCount-\$(colCount)" style=\"height\:\$\{this.styles.ss.colLegendHeight\}\;\">
 \\\@else
     <\$(tag) class="row row-col-legends row-col-legends-middle \$\{\"GtTenColumns \" if ec.colCount \> 10 else \"\"\}colCount-\$(colCount)">
-\@endif
+\\\@endif
     \$(left)
     \$(legends)
     \$(right)
 </\$(tag)>
-\@endif
+\\\@endif
 ]]></style>XXXXX`.replace('XXXXX', '${0}');
 
 let questionColLegendRowItem = `<style name='question.col-legend-row-item'> <![CDATA[
