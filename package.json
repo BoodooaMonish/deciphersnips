@@ -2,7 +2,7 @@
   "name": "deciphersnips",
   "displayName": "Decipher BS Snippets",
   "description": "Custom XML Snippets for Decipher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "Boodooa-Monish",
   "repository": "https://github.com/BoodooaMonish/deciphersnips",
   "icon": "logo.png",
@@ -232,7 +232,7 @@
       {
         "command": "deciphersnips.rating",
         "category": "Decipher",
-        "title": "Question - Rating",
+        "title": "Question - Button Rating",
         "enablement": "editorLangId == xml"
       },
       {
