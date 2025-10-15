@@ -28,20 +28,20 @@ const cardRatingExtra = `  <style name=\"question.after\" wrap=\"ready\"><\![CDA
   }
   </style>
   ]]></style>`;
-const cardSortRes = `  <res label=\"sys_noAnswerSelected\">Please select a bucket for this card.</res>
-  <res label=\"sys_check-error\">Please select \$(which) \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atLeast-plur-column\">Please select at least \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atLeast-plur-row\">Please select at least \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atLeast-sing-column\">Please select at least \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atLeast-sing-row\">Please select at least \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atMost-plur-column\">Please select at most \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atMost-plur-row\">Please select at most \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atMost-sing-column\">Please select at most \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-atMost-sing-row\">Please select at most \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-exactly-plur-column\">Please select exactly \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-exactly-plur-row\">Please select exactly \$(count) buckets for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-exactly-sing-column\">Please select exactly \$(count) bucket for this card (you selected \$(actual)).</res>
-  <res label=\"sys_check-error-exactly-sing-row\">Please select exactly \$(count) bucket for this card (you selected \$(actual)).</res>`;
+const cardSortRes = `  <res label=\"sys_noAnswerSelected\">Please select an answer for this card.</res>
+  <res label=\"sys_check-error\">Please select \$(which) \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atLeast-plur-column\">Please select at least \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atLeast-plur-row\">Please select at least \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atLeast-sing-column\">Please select at least \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atLeast-sing-row\">Please select at least \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atMost-plur-column\">Please select at most \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atMost-plur-row\">Please select at most \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atMost-sing-column\">Please select at most \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-atMost-sing-row\">Please select at most \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-exactly-plur-column\">Please select exactly \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-exactly-plur-row\">Please select exactly \$(count) answers for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-exactly-sing-column\">Please select exactly \$(count) answer for this card (you selected \$(actual)).</res>
+  <res label=\"sys_check-error-exactly-sing-row\">Please select exactly \$(count) answer for this card (you selected \$(actual)).</res>`;
 
 /**
  * Decipher Question Functions

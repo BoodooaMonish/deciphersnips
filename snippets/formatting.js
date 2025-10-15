@@ -1,3 +1,536 @@
+let conjoint = `<suspend/>
+<note>DCM Question Template --Start--</note>
+<exec when="init">
+def setupDCMFile(fname, fileDelimiter="\\t"):
+    f = open("%s/%s" % (gv.survey.path, fname))
+    dcmObj = [ line.strip("\\r\\n").split(fileDelimiter) for line in f.readlines() ]
+
+    d = {}
+    dcm_concepts = []
+
+    for i,row in enumerate(dcmObj):
+        if i:
+            d["v%s_t%s_c%s" % (row[0],row[1],row[2])] = row[3:]
+            if row[2] not in dcm_concepts:
+                dcm_concepts.append(row[2])
+
+    concepts = [ int(x) for x in dcm_concepts ]
+    concepts.sort()
+    d["concepts"] = dcm_concepts
+
+    return d
+
+#set persistent items, format: p.concept#_att#
+def setupDCMItems(d, vt, prefix="1"):
+    print "***** STAFF ONLY *****"
+    print "***** DCM Matrix *****"
+    print "Version_Task: %s" % vt
+
+    for concept in d.get("concepts"):
+        attributes = d[ "%s_c%s" % (vt,concept) ]
+        print "Concept %s: %s" % (concept,attributes)
+
+        for i,attr in enumerate(attributes):
+            p[ "concept%s_att%s" % (concept,i+1) ] = res[ "%s_att%s_level%s" % (prefix,i+1,attr) ]
+            p[ "dcmLegend_att%s" % (i+1) ] = res[ "%s_legend%s" % (prefix,i+1) ]
+</exec>
+
+<exec when="init">
+\${1:Q24}_dcm = setupDCMFile("\${2:design.dat}")
+</exec>
+
+<quota label="\${1:Q24}_quota" overquota="noqual" sheet="\${1:Q24}_DCM"/>
+
+<number label="\${1:Q24}_Version" size="3" optional="1" verify="range(1,\${3:50})" where="execute">
+  <title>\${1:Q24} - DCM Version</title>
+  <exec>
+print p.markers
+for x in p.markers:
+  if "/\${1:Q24}_DCM/ver_" in x:
+    \${1:Q24}_Version.val = int(x.split("_")[-1])
+    break
+  </exec>
+</number>
+<suspend/>
+
+<res label="\${1:Q24}_legend1" >Genre</res>
+<res label="\${1:Q24}_legend2" >Additional Story Content</res>
+<res label="\${1:Q24}_legend3" >Additional Game Levels</res>
+<res label="\${1:Q24}_legend4" >Additional Characters</res>
+<res label="\${1:Q24}_legend5" >Additional In-Game Items</res>
+<res label="\${1:Q24}_legend6" >Additional Cosmetic Items</res>
+<res label="\${1:Q24}_legend7" >Additional Boosters</res>
+<res label="\${1:Q24}_legend8" >In-game Currency</res>
+<res label="\${1:Q24}_legend9" >Exclusive Items</res>
+<res label="\${1:Q24}_legend10">Ads</res>
+<res label="\${1:Q24}_legend11">Subscription</res>
+<res label="\${1:Q24}_legend12">Upfront Game Client Cost</res>
+
+<res label="\${1:Q24}_att1_level1">First-person shooter (FPS)</res>
+<res label="\${1:Q24}_att1_level2">Third-person shooter (TPS) / Action</res>
+<res label="\${1:Q24}_att1_level3">Role-playing (RPG)</res>
+<res label="\${1:Q24}_att1_level4">Strategy</res>
+<res label="\${1:Q24}_att1_level5">Simulation</res>
+<res label="\${1:Q24}_att1_level6">Casual / puzzle / card</res>
+<res label="\${1:Q24}_att1_level7">Real-time strategy</res>
+<res label="\${1:Q24}_att1_level8">Sports</res>
+<res label="\${1:Q24}_att1_level9">Music</res>
+<res label="\${1:Q24}_att1_level10">Fighting</res>
+<res label="\${1:Q24}_att1_level11">Massive online battle arena (MOBA)</res>
+
+<res label="\${1:Q24}_att2_level0"> </res>
+<res label="\${1:Q24}_att2_level1"> </res>
+<res label="\${1:Q24}_att2_level2">Additional story content is available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att3_level0"> </res>
+<res label="\${1:Q24}_att3_level1"> </res>
+<res label="\${1:Q24}_att3_level2">Additional levels of gameplay are available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att4_level0"> </res>
+<res label="\${1:Q24}_att4_level1"> </res>
+<res label="\${1:Q24}_att4_level2">Additional characters are available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att5_level0"> </res>
+<res label="\${1:Q24}_att5_level1"> </res>
+<res label="\${1:Q24}_att5_level2">In-game items like weapons, vehicles and equipment are available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att6_level0"> </res>
+<res label="\${1:Q24}_att6_level1"> </res>
+<res label="\${1:Q24}_att6_level2">Cosmetic items and customizations for you characters are available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att7_level0"> </res>
+<res label="\${1:Q24}_att7_level1"> </res>
+<res label="\${1:Q24}_att7_level2">Boosters and power-ups are available for purchase in a cash shop</res>
+
+<res label="\${1:Q24}_att8_level0"> </res>
+<res label="\${1:Q24}_att8_level1">The game features in-game currency that can only be earned</res>
+<res label="\${1:Q24}_att8_level2">The game features in-game currency that can be earned or purchased with real money</res>
+<res label="\${1:Q24}_att8_level3">The game features an in-game currency that can only be earned and a separate currency that can only be purchased with real money</res>
+
+<res label="\${1:Q24}_att9_level0"> </res>
+<res label="\${1:Q24}_att9_level1"> </res>
+<res label="\${1:Q24}_att9_level2">The game features exclusive in-game items that can only be purchased with real money</res>
+<res label="\${1:Q24}_att9_level3">The game features exclusive in-game items that can be either earned or purchased with real money</res>
+
+<res label="\${1:Q24}_att10_level0"> </res>
+<res label="\${1:Q24}_att10_level1">The game is free of all advertising</res>
+<res label="\${1:Q24}_att10_level2">The game features advertising </res>
+
+<res label="\${1:Q24}_att11_level0"> </res>
+<res label="\${1:Q24}_att11_level1">There is no subscription required to play</res>
+<res label="\${1:Q24}_att11_level2">The game requires you to pay a subscription each month in order to play</res>
+
+<res label="\${1:Q24}_att12_level1">Game is free</res>
+<res label="\${1:Q24}_att12_level2">Game is available for \$ 2.50</res>
+<res label="\${1:Q24}_att12_level3">Game is available for \$ 5</res>
+<res label="\${1:Q24}_att12_level4">Game is available for \$ 10</res>
+<res label="\${1:Q24}_att12_level5">Game is available for \$ 15</res>
+<res label="\${1:Q24}_att12_level6">Game is available for \$ 20</res>
+<res label="\${1:Q24}_att12_level7">Game is available for \$ 25</res>
+<res label="\${1:Q24}_att12_level8">Game is available for \$ 30</res>
+<res label="\${1:Q24}_att12_level9">Game is available for \$ 40</res>
+<res label="\${1:Q24}_att12_level10">Game is available for \$ 50</res>
+
+<res label="NoneText">None of these</res>
+<res label="TopText">Concepts</res>
+<res label="rowText">Select one option</res>
+
+<exec>p.startTime = timeSpent()</exec>
+
+<loop label="\${1:Q24}_dcm_loop" vars="task" randomizeChildren="0">
+  <title>\${1:Q24} - DCM Loop</title>
+  <block label="\${1:Q24}_dcm_block" randomize="0">
+    <radio label="\${1:Q24}_[loopvar: task]" optional="0" surveyDisplay="desktop" 
+      ss:questionClassNames="\${1:Q24}_dcm">
+      <title>DCM Title [DCMcount]</title>
+      <alt>DCM Task: [loopvar: task]</alt>
+      <comment>Select one</comment>
+      <exec>
+setupDCMItems( \${1:Q24}_dcm, "v%s_t%s" % (Q24_Version.val,"[loopvar: task]"),"\${1:Q24}" )
+p.DCMcount = "%d" % (\${1:Q24}_dcm_loop_expanded.order.index([loopvar: task]-1) + 1)
+      </exec>
+      <col label="c1">Concept 1</col>
+      <col label="c2">Concept 2</col>
+      <col label="c3">Concept 3</col>
+      <col label="c4">Concept 4</col>
+      <col label="c5" alt="None of these"/>
+      <style name="question.header" mode="before">
+        <![CDATA[
+          <style type="text/css">
+/* add this only if you have scrollbars in IE7,8
+div.\${1:Q24}_dcm {
+    overflow: hidden;
+}
+*/
+.\${1:Q24}_dcm tr.legend th.legend {
+    font-weight: bold;
+    width: auto;
+}
+.\${1:Q24}_dcm th, .\${1:Q24}_dcm td {
+    padding: 15px;
+}
+.\${1:Q24}_dcm tr.dcm_even {
+    background-color: #FFFFFF;
+}
+.\${1:Q24}_dcm tr.dcm_odd {
+    background-color: #EFEFEF;
+}
+.\${1:Q24}_dcm td.dcm_legend {
+    font-weight: bold;
+    text-align: left;
+    width: 120px;
+}
+.\${1:Q24}_dcm tr.dcm_even td.dcm_item, .\${1:Q24}_dcm tr.dcm_odd td.dcm_item {
+    text-align: center;
+    width: 120px;
+}
+          </style>
+        ]]>
+      </style>
+
+<style arg:addNoneColumn="1" arg:attributes="12" arg:noneText="\${res.NoneText}" arg:top="\${res.TopText}" arg:yeslegend="1" name="question.top-legend">
+<![CDATA[
+\\@if this.styles.ss.colLegendHeight
+<tr class="legend top-legend\${" GtTenColumns" if ec.colCount > 10 else ""} \$(colError)" style="height:\${this.styles.ss.colLegendHeight};">
+\\@else
+<tr class="legend top-legend\${" GtTenColumns" if ec.colCount > 10 else ""} \$(colError)">
+\\@endif
+
+\\@if yeslegend == '1'
+    <th class="dcm_legend2">\$(top)</th>
+\\@endif
+    \$(left)
+    \$(legends)
+    \$(right)
+</tr>
+
+\\@for x in range(1,int(attributes)+1)
+<tr class="\${'dcm_%s' % ['odd','even'][x % 2]}">
+\\@if yeslegend == '1'
+    <td class="dcm_legend">\${p.get('dcmLegend_att%d' % x)}</td>
+\\@endif
+    <td class="dcm_item">\${p.get('concept%d_att%d' % ([c.index+1 for c in p.get('shuffle-Col-%d' % this.uid) or this.cols][0],x) )}</td>
+    <td class="dcm_item">\${p.get('concept%d_att%d' % ([c.index+1 for c in p.get('shuffle-Col-%d' % this.uid) or this.cols][1],x) )}</td>
+    <td class="dcm_item">\${p.get('concept%d_att%d' % ([c.index+1 for c in p.get('shuffle-Col-%d' % this.uid) or this.cols][2],x) )}</td>
+    <td class="dcm_item">\${p.get('concept%d_att%d' % ([c.index+1 for c in p.get('shuffle-Col-%d' % this.uid) or this.cols][3],x) )}</td>
+
+\\@if addNoneColumn == '1'
+\\@if x == 1
+     <td rowspan="\${int(\$(attributes))}" style="border-top: none; text-align: center;"><b>\$(noneText)</b></td>
+\\@endif
+\\@endif
+
+</tr>
+
+\\@end
+<tbody>
+]]>
+</style>
+
+<style arg:row="\${res.rowText}" arg:yeslegend="1" name="question.row">
+<![CDATA[
+\\@if this.styles.ss.rowHeight
+    <tr class="\$(style) colCount-\$(colCount)" style="height:\${this.styles.ss.rowHeight};">
+\\@else
+    <tr class="\$(style) colCount-\$(colCount)">
+\\@endif
+
+\\@if yeslegend == '1'
+    <td class="dcm_legend">\$(row)</td>
+\\@endif
+\$(left)
+\$(elements)
+\$(right)
+</tr>
+]]>
+</style>
+
+<style arg:addNoneColumn="1" name="question.top-legend-item">
+<![CDATA[
+\\@if this.styles.ss.colWidth
+    <th id="\$(this.label)_\$(col.label)" class="dcm_legend legend survey-q-grid-collegend \$(col.styles.ss.colClassNames) \${col.group.styles.ss.groupClassNames if col.group else ""}" style="width:\${this.styles.ss.colWidth}; min-width:\${this.styles.ss.colWidth}">
+        \$(text)
+    </th>
+\\@else
+
+\\@if addNoneColumn == '1' and col.index == (ec.colCount - 1)
+    <th id="\$(this.label)_\$(col.label)" style="border-bottom: none; width: 125px;" >
+        \$(text)
+    </th>
+\\@else
+    <th id="\$(this.label)_\$(col.label)" class="legend survey-q-grid-collegend \$(col.styles.ss.colClassNames) \${col.group.styles.ss.groupClassNames if col.group else ""}">
+        \$(text)
+    </th>
+\\@endif
+
+\\@endif
+]]>
+</style>
+
+    </radio>
+    <suspend/>
+  </block>
+
+  <looprow label="1">
+    <loopvar name="task">1</loopvar>
+  </looprow>
+
+  <looprow label="2">
+    <loopvar name="task">2</loopvar>
+  </looprow>
+
+  <looprow label="3">
+    <loopvar name="task">3</loopvar>
+  </looprow>
+
+  <looprow label="4">
+    <loopvar name="task">4</loopvar>
+  </looprow>
+
+  <looprow label="5">
+    <loopvar name="task">5</loopvar>
+  </looprow>
+
+<looprow label="6">
+    <loopvar name="task">6</loopvar>
+  </looprow>
+
+<looprow label="7">
+    <loopvar name="task">7</loopvar>
+  </looprow>
+
+<looprow label="8">
+    <loopvar name="task">8</loopvar>
+  </looprow>
+
+<looprow label="9">
+    <loopvar name="task">9</loopvar>
+  </looprow>
+
+<looprow label="10">
+    <loopvar name="task">10</loopvar>
+  </looprow>
+
+<looprow label="11">
+    <loopvar name="task">11</loopvar>
+  </looprow>
+
+<looprow label="12">
+    <loopvar name="task">12</loopvar>
+  </looprow>
+
+<looprow label="13">
+    <loopvar name="task">13</loopvar>
+  </looprow>
+
+<looprow label="14">
+    <loopvar name="task">14</loopvar>
+  </looprow>
+
+</loop>
+
+<float label="\${1:Q24}_Timer" size="15" where="execute">
+  <title>\${1:Q24} - DCM Timer (Minutes)</title>
+  <exec>\${1:Q24}_Timer.val = (timeSpent() - p.startTime) / 60.0</exec>
+</float>
+<note>DCM Question Template --End--</note>
+<suspend/>`;
+
+
+let maxdiffIndices = `  <suspend/>
+    <note>MaxDiff Indices Template --Start--</note>
+    <exec when="init">
+def setupMaxDiffFile(fname, fileDelimiter="\\t"):
+    try:
+        f = open("%s/%s" % (gv.survey.path, fname))
+        mdObj = [ line.strip("\\r\\n").split(fileDelimiter) for line in f.readlines() ]
+        d = dict( ("v%s_t%s" % (row[0], row[1]), row[2:]) for row in mdObj )
+    except IOError:
+        d = {}
+    return d
+
+def setupMaxDiffItemsI(d, vt, question):
+    item_index = dict( (r.o.label.strip("item"), r.index) for r in question.rows )
+
+    items = d[vt]
+
+    for r in question.rows:
+        if r.o.label.strip("item") not in items:
+            r.disabled = True
+
+    question.rows.order = [ item_index[i] for i in items ]
+
+    print "*****STAFF ONLY*****"
+    print "Version_Task: %s" % vt
+    for i in range(len(items)):
+        print "Item %s: %s" % (i+1,items[i])
+    </exec>
+    
+    <exec when="init">\${1:Q24}_md = setupMaxDiffFile("\${2:design.dat}")</exec>
+    
+    <quota label="\${1:Q24}_quota" overquota="noqual" sheet="\${1:Q24}_Maxdiff"/> 
+   
+    <number label="\${1:Q24}_Version" size="3" optional="1" verify="range(1,\${3:10})" where="execute">
+      <title>\${1:Q24} - MaxDiff Version</title>
+      <exec>
+print p.markers
+for x in p.markers:
+    if "/\${1:Q24}_Maxdiff/ver_" in x:
+        \${1:Q24}_Version.val = int(x.split("_")[-1])
+        break
+      </exec>
+    </number>
+    <suspend/>
+    
+    <exec>p.startTime = timeSpent()</exec>
+    
+    <loop label="\${1:Q24}_md_loop" vars="task" randomizeChildren="0">
+      <title>\${1:Q24} - MaxDiff Loop</title>
+      <block label="\${1:Q24}_md_block" randomize="1">
+        <radio label="\${1:Q24}_[loopvar: task]" adim="cols" grouping="cols" shuffle="rows" unique="1" ss:questionClassNames="\${1:Q24}_maxdiff">
+          <title>Title update [MDcount]</title>
+          <comment>Select one</comment>
+          <exec>
+setupMaxDiffItemsI( \${1:Q24}_md, "v%d_t%d" % (\${1:Q24}_Version.val, [loopvar: task]), \${1:Q24}_[loopvar: task])
+p.MDcount = str(\${1:Q24}_md_loop_expanded.order.index([loopvar: task]-1)+1)
+          </exec>
+          <col label="best">Most Important</col>
+          <col label="worst">Least Important</col>
+    <row label="item1">Traditional</row>
+    <row label="item2">Innovative</row>
+    <row label="item3">Steady</row>
+    <row label="item4">Fast-paced</row>
+    <row label="item5">Technology-oriented</row>
+    <row label="item6">Community-focused</row>
+    <row label="item7">Industry leader</row>
+    <row label="item8">Expert</row>
+    <row label="item9">Consultative</row>
+    <row label="item10">Customer-focused</row>
+    <row label="item11">Revenue-focused</row>
+    <row label="item12">Proactive</row>
+
+<style name="question.header" mode="before">
+            <![CDATA[
+    <style type="text/css">
+    .\${1:Q24}_maxdiff tr.maxdiff-header-legend {
+        background-color: transparent;
+        border-bottom: 2px solid #d9d9d9;
+    }
+    .\${1:Q24}_maxdiff tr.maxdiff-header-legend th.legend {
+        background-color: transparent;
+        border: none;
+    }
+    .\${1:Q24}_maxdiff tr.maxdiff-row td.element {
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid #d9d9d9;
+        text-align: center;
+    }
+    .\${1:Q24}_maxdiff tr.maxdiff-row th.row-legend {
+        background-color: transparent;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid #d9d9d9;
+        text-align: center;
+    }
+    </style>
+            ]]>
+</style>
+ 
+<style name="question.top-legend">
+            <![CDATA[
+\\@if ec.simpleList
+    \$(legends)
+\\@else
+    <\$(tag) class="maxdiff-header-legend row row-col-legends row-col-legends-top \${"mobile-top-row-legend " if mobileOnly else ""}\${"GtTenColumns " if ec.colCount > 10 else ""}colCount-\$(colCount)">
+        \${"%s%s" % (legends.split("</th>")[0],"</th>")}
+       \$(left)
+        \${"%s%s" % (legends.split("</th>")[1],"</th>")}
+    </\$(tag)>
+    \\@if not simple
+  </tbody>
+  <tbody>
+    \\@endif
+\\@endif
+            ]]>
+</style>
+ 
+<style name="question.row">
+            <![CDATA[
+\\@if ec.simpleList
+    \$(elements)
+\\@else
+    <\$(tag) class="maxdiff-row row row-elements \$(style) colCount-\$(colCount)">
+        \${"%s%s" % (elements.split("</td>")[0],"</td>")}
+        \$(left)
+        \${"%s%s" % (elements.split("</td>")[1],"</td>")}
+    </\$(tag)>
+\\@endif
+            ]]>
+</style>
+        </radio>
+      </block>
+      
+      <looprow label="1">
+        <loopvar name="task">1</loopvar>
+      </looprow>
+      
+      <looprow label="2">
+        <loopvar name="task">2</loopvar>
+      </looprow>
+      
+      <looprow label="3">
+        <loopvar name="task">3</loopvar>
+      </looprow>
+      
+      <looprow label="4">
+        <loopvar name="task">4</loopvar>
+      </looprow> 
+     
+      <looprow label="5">
+        <loopvar name="task">5</loopvar>
+      </looprow>
+      
+      <looprow label="6">
+        <loopvar name="task">6</loopvar>
+      </looprow>
+      
+      <looprow label="7">
+        <loopvar name="task">7</loopvar>
+      </looprow>
+      
+      <looprow label="8">
+        <loopvar name="task">8</loopvar>
+      </looprow>
+      
+      <looprow label="9">
+        <loopvar name="task">9</loopvar>
+      </looprow>
+      
+      <looprow label="10">
+        <loopvar name="task">10</loopvar>
+      </looprow>
+      
+      <looprow label="11">
+        <loopvar name="task">11</loopvar>
+      </looprow>
+      
+      <looprow label="12">
+        <loopvar name="task">12</loopvar>
+      </looprow>
+               
+    </loop>
+    
+    <float label="\${1:Q24}_Timer" size="15" where="execute">
+      <title>\${1:Q24} - MaxDiff Timer (Minutes)</title>
+      <exec>\${1:Q24}_Timer.val = (timeSpent() - p.startTime) / 60.0</exec>
+    </float>
+    
+    <note>MaxDiff Indices Template --End--</note>
+    <suspend/>`;
+
 let baseTemp = "<block label=\"baseBlock\" builder:title=\"BASE\">\n\t<suspend/>\n\t<logic label=\"lnClear1\" cleardata:allVariables=\"1\" cleardata:at=\"2025-10-31 00:00\" cleardata:fields=\"ID,url\" uses=\"cleardata.1\">\n\t\t<title>Schedule Clearing Data</title>\n\t</logic>\n\t<suspend/>\n\t\t<quota label=\"quoTotal\" overquota=\"noqual\" sheet=\"Total\"/>\n\t<suspend/>\n\t<html label=\"disclaimerIT\" where=\"survey\">Lo studio a cui Lei sta per partecipare&amp;nbsp;viene effettuato esclusivamente a fini statistici. Tuttavia, per esigenze tecniche, alcuni dei suoi&amp;nbsp;dati personali come il suo&amp;nbsp;identificativo univoco potrebbero essere soggetti a registrazione.<br/><br/>Continuando il questionario, Lei certifica&amp;nbsp;di accettare le condizioni.</html>\n\t<html label=\"disclaimerUK\" where=\"survey\">All information received in this survey is strictly confidential and will be dealt with in accordance with the Market Research Society Code of Conduct.<br/><br/>The study you are about to participate in is for statistical purposes only. Nevertheless, for technical purposes some of your personal data such as your project unique identifier may be registered<br/><br/>We may need to contact you again in connection to this survey only. The survey should take up to xxx minutes.<br/><br/>Please click Continue if you agree to the above terms.</html>\n\t<html label=\"disclaimerES\" where=\"survey\">El estudio en el que va a participar es exclusivamente para fines estadísticos. Sin embargo, para fines técnicos, algunos de sus datos personales, como su login ID, pueden registrarse.<br/><br/>Al continuar con el cuestionario, certifica que acepta las condiciones.</html>\n\t<html label=\"disclaimerFR\" where=\"survey\">L'étude à laquelle vous allez participer est réalisée exclusivement à des fins statistiques. Néanmoins, pour des besoins techniques certaines de vos données personnelles telles que votre identifiant unique peuvent faire l'objet d'un enregistrement.<br/><br/>En poursuivant le questionnaire, je certifie en accepter les conditions.</html>\n\t<html label=\"disclaimerDE\" where=\"survey\">Die Studie, an der Sie teilnehmen möchten, dient ausschließlich statistischen Zwecken. Aus technischen Gründen können jedoch einige Ihrer persönlichen Daten, wie z.B. Ihre IP-Adresse, gespeichert werden.<br/><br/>Indem Sie mit dem Fragebogen fortfahren, akzeptieren Sie diese Bedingungen.</html>\n\t<suspend/>\n</block>\n<suspend/>${0}";
 let codepostaltemp = `<suspend/>
 <block label="blockcodePostalFR" builder:title="blockcodePostalFR">
@@ -738,7 +1271,7 @@ new Modal(item,true);
 `;
 
 
-let continueAfter = `<style label="countdownSubmitTimer" arg\:btnID="btn_continue" arg\:timeout="\${1:15}" name="respview.client.js" with\=\"\${2:Q1}\" wrap="ready"><![CDATA[
+let continueAfter = `<style label="countdownSubmitTimer" arg\:btnID="btn_continue" arg\:timeout="\${1:15}" name="respview.client.js" mode=\"after\" with\=\"\${2:Q1}\" wrap="ready"><![CDATA[
 var submitBtn = $ ('#'+'\$(btnID)');
 var submitBtnText = submitBtn.attr('value');
 
@@ -929,7 +1462,301 @@ if (e.target.value.length \> 2){
 `;
 
 
+let resbuttonFR = `  <res label="sys_check-error-atLeast-plur-column">Veuillez sélectionner au moins \$\(count\) réponses \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Veuillez sélectionner au moins \$\(count\) réponse \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Veuillez sélectionner au maximum \$\(count\) réponses \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Veuillez sélectionner exactement \$\(count\) réponses \(vous avez sélectionné \$\(actual\)\).</res>`;
+
+let rescardsortFR = `  <res label="sys_noAnswerSelected">Veuillez sélectionner une réponse pour cette carte.</res>
+  <res label="sys_check-error">Veuillez sélectionner \$\(which\) \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Veuillez sélectionner au moins \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Veuillez sélectionner au moins \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Veuillez sélectionner au moins \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Veuillez sélectionner au moins \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Veuillez sélectionner au maximum \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Veuillez sélectionner au maximum \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Veuillez sélectionner au maximum \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Veuillez sélectionner au maximum \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Veuillez sélectionner exactement \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Veuillez sélectionner exactement \$\(count\) réponses pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Veuillez sélectionner exactement \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Veuillez sélectionner exactement \$\(count\) réponse pour cette carte \(vous avez sélectionné \$\(actual\)\).</res>`;
+
+let ressliderFR = `  <res label="sys_noAnswerSelected">Veuillez faire glisser le curseur pour évaluer votre réponse.</res>
+  <res label="sys_notWhole">Veuillez faire glisser la barre pour évaluer votre réponse.</res>`;
+
+let resbuttonratingFR = `  <res label="sys_notWhole">Veuillez sélectionner une réponse.</res>`;
+
+let resbuttonDE = `  <res label="sys_check-error-atLeast-plur-column">Bitte wählen Sie mindestens \$\(count\) Antworten aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Bitte wählen Sie mindestens \$\(count\) Antworten aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atMost-plur-column">Bitte wählen Sie maximal \$\(count\) Antworten aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-exactly-plur-column">Bitte wählen Sie genau \$\(count\) Antworten aus \(Sie haben \$\(actual\) ausgewählt\).</res>`;
+
+let rescardsortDE = `  <res label="sys_noAnswerSelected">Bitte wählen Sie eine Antwort für diese Karte aus.</res>
+  <res label="sys_check-error">Bitte wählen Sie \$\(which\) \$\(count\) Antwort für diese Karte \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Bitte wählen Sie mindestens \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Bitte wählen Sie mindestens \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Bitte wählen Sie mindestens \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Bitte wählen Sie mindestens \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atMost-plur-column">Bitte wählen Sie maximal \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atMost-plur-row">Bitte wählen Sie maximal \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atMost-sing-column">Bitte wählen Sie maximal \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-atMost-sing-row">Bitte wählen Sie maximal \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-exactly-plur-column">Bitte wählen Sie genau \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-exactly-plur-row">Bitte wählen Sie genau \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-exactly-sing-column">Bitte wählen Sie genau \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>
+  <res label="sys_check-error-exactly-sing-row">Bitte wählen Sie genau \$\(count\) Antworten für diese Karte aus \(Sie haben \$\(actual\) ausgewählt\).</res>`;
+
+let ressliderDE = `  <res label="sys_noAnswerSelected">Bitte schieben Sie den Regler, um Ihre Antwort zu bewerten.</res>
+  <res label="sys_notWhole">Bitte schieben Sie den Schieberegler, um Ihre Antwort zu bewerten.</res>`;
+
+let resbuttonratingDE = `  <res label="sys_notWhole">Bitte wählen Sie eine Antwort aus.</res>`;
+
+let resbuttonES = `  <res label="sys_check-error-atLeast-plur-column">Seleccione al menos \$\(count\) respuestas \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Seleccione al menos \$\(count\) respuestas \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Seleccione como máximo \$\(count\) respuestas \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Seleccione exactamente \$\(count\) respuestas \(ha seleccionado \$\(actual\)\).</res>`;
+
+let rescardsortES = `  <res label="sys_noAnswerSelected">Seleccione una respuesta para esta tarjeta.</res>
+  <res label="sys_check-error">Seleccione \$\(which\) \$\(count\) respuesta para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Seleccione al menos \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Seleccione al menos \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Seleccione al menos \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Seleccione al menos \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Seleccione como máximo \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Seleccione como máximo \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Seleccione como máximo \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Seleccione como máximo \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Seleccione exactamente \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Seleccione exactamente \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Seleccione exactamente \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Seleccione exactamente \$\(count\) respuestas para esta tarjeta \(ha seleccionado \$\(actual\)\).</res>`;
+
+let ressliderES = `  <res label="sys_noAnswerSelected">Deslice el control deslizante para calificar su respuesta.</res>
+  <res label="sys_notWhole">Deslice la barra para calificar su respuesta.</res>`;
+
+let resbuttonratingES = `  <res label="sys_notWhole">Seleccione una respuesta.</res>`;
+
+let resbuttonIT = `  <res label="sys_check-error-atLeast-plur-column">Seleziona almeno \$\(count\) risposte \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Seleziona almeno \$\(count\) risposta \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Seleziona al massimo \$\(count\) risposte \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Seleziona esattamente \$\(count\) risposte \(ne hai selezionate \$\(actual\)\).</res>`;
+
+let rescardsortIT = `  <res label="sys_noAnswerSelected">Seleziona una risposta per questa scheda.</res>
+  <res label="sys_check-error">Seleziona \$\(which\) \$\(count\) risposta per questa scheda \(hai selezionato \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Seleziona almeno \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Seleziona almeno \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Seleziona almeno \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Seleziona almeno \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Seleziona al massimo \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Seleziona al massimo \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Seleziona al massimo \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Seleziona al massimo \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Seleziona esattamente \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Seleziona esattamente \$\(count\) risposte per questa scheda \(ne hai selezionate \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Seleziona esattamente \$\(count\) risposta per questa scheda \(hai selezionato \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Seleziona esattamente \$\(count\) risposta per questa scheda \(hai selezionato \$\(actual\)\).</res>`;
+
+let ressliderIT = `  <res label="sys_noAnswerSelected">Fai scorrere la manopola per valutare la tua risposta.</res>
+  <res label="sys_notWhole">Fai scorrere la barra per valutare la tua risposta.</res>`;
+
+let resbuttonratingIT = `  <res label="sys_notWhole">Seleziona una risposta.</res>`;
+
+let resbuttonDK = `  <res label="sys_check-error-atLeast-plur-column">Vælg mindst \$\(count\) svar \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Vælg mindst \$\(count\) svar \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Vælg højst \$\(count\) svar \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Vælg nøjagtigt \$\(count\) svar \(du har valgt \$\(actual\)\).</res>`;
+
+let rescardsortDK = `  <res label="sys_noAnswerSelected">Vælg et svar til dette kort.</res>
+  <res label="sys_check-error">Vælg \$\(which\) \$\(count\) svar til dette kort \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Vælg mindst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Vælg mindst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Vælg mindst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Vælg mindst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Vælg højst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Vælg højst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Vælg højst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Vælg højst \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Vælg nøjagtigt \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Vælg nøjagtigt \$\(count\) svar til dette kort \(du har valgt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Vælg nøjagtigt \$\(count\) svar til dette kort \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Vælg nøjagtigt \$\(count\) svar til dette kort \(du valgte \$\(actual\)\).</res>`;
+
+let ressliderDK = `  <res label="sys_noAnswerSelected">Skub håndtaget for at vurdere dit svar.</res>
+  <res label="sys_notWhole">Skub bjælken for at vurdere dit svar.</res>`;
+
+let resbuttonratingDK = `  <res label="sys_notWhole">Vælg et svar.</res>`;
+
+let resbuttonNL = `  <res label="sys_check-error-atLeast-plur-column">Selecteer ten minste \$\(count\) antwoorden \(u hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Selecteer ten minste \$\(count\) antwoord \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atMost-plur-column">Selecteer maximaal \$\(count\) antwoorden \(u hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-exactly-plur-column">Selecteer precies \$\(count\) antwoorden \(je hebt \$\(actual\) geselecteerd\).</res>`;
+
+let rescardsortNL = `  <res label="sys_noAnswerSelected">Selecteer een antwoord voor deze kaart.</res>
+  <res label="sys_check-error">Selecteer \$\(which\) \$\(count\) antwoord voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Selecteer ten minste \$\(count\) antwoorden voor deze kaart \(u hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Selecteer ten minste \$\(count\) antwoorden voor deze kaart \(u hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Selecteer ten minste \$\(count\) antwoord voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Selecteer ten minste \$\(count\) antwoord voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atMost-plur-column">Selecteer maximaal \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atMost-plur-row">Selecteer maximaal \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atMost-sing-column">Selecteer maximaal \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-atMost-sing-row">Selecteer maximaal \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-exactly-plur-column">Selecteer precies \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-exactly-plur-row">Selecteer precies \$\(count\) antwoorden voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-exactly-sing-column">Selecteer precies \$\(count\) antwoord voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>
+  <res label="sys_check-error-exactly-sing-row">Selecteer precies \$\(count\) antwoord voor deze kaart \(je hebt \$\(actual\) geselecteerd\).</res>`;
+
+let ressliderNL = `  <res label="sys_noAnswerSelected">Schuif de hendel om uw antwoord te beoordelen.</res>
+  <res label="sys_notWhole">Schuif de balk om uw antwoord te beoordelen.</res>`;
+
+let resbuttonratingNL = `  <res label="sys_notWhole">Selecteer een antwoord.</res>`;
+
+let resbuttonFI = `  <res label="sys_check-error-atLeast-plur-column">Valitse vähintään \$\(count\) vastausta \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Valitse vähintään \$\(count\) vastausta \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Valitse enintään \$\(count\) vastausta \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Valitse tarkalleen \$\(count\) vastausta \(valitsit \$\(actual\)\).</res>`;
+
+let rescardsortFI = `  <res label="sys_noAnswerSelected">Valitse vastaus tähän korttiin.</res>
+  <res label="sys_check-error">Valitse \$\(which\) \$\(count\) vastaus tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Valitse vähintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Valitse vähintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Valitse vähintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Valitse vähintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Valitse enintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Valitse enintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Valitse enintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Valitse enintään \$\(count\) vastausta tälle kortille \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Valitse täsmälleen \$\(count\) vastausta tähän korttiin \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Valitse täsmälleen \$\(count\) vastausta tähän korttiin \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Valitse täsmälleen \$\(count\) vastaus tähän korttiin \(valitsit \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Valitse täsmälleen \$\(count\) vastaus tähän korttiin \(valitsit \$\(actual\)\).</res>`;
+
+let ressliderFI = `  <res label="sys_noAnswerSelected">Arvostele vastauksesi liu'uttamalla kahvaa.</res>
+  <res label="sys_notWhole">Arvostele vastauksesi liu'uttamalla palkkia.</res>`;
+
+let resbuttonratingFI = `  <res label="sys_notWhole">Valitse vastaus.</res>`;
+
+let resbuttonNO = `  <res label="sys_check-error-atLeast-plur-column">Velg minst \$\(count\) svar \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Velg minst \$\(count\) svar \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Velg maksimalt \$\(count\) svar \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Velg nøyaktig \$\(count\) svar \(du valgte \$\(actual\)\).</res>`;
+
+let rescardsortNO = `  <res label="sys_noAnswerSelected">Velg et svar for dette kortet.</res>
+  <res label="sys_check-error">Velg \$\(which\) \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Velg minst \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Velg minst \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Velg minst \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Velg minst \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Velg maksimalt \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Velg maksimalt \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Velg maksimalt \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Velg maksimalt \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Velg nøyaktig \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Velg nøyaktig \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Velg nøyaktig \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Velg nøyaktig \$\(count\) svar for dette kortet \(du valgte \$\(actual\)\).</res>`;
+
+let ressliderNO = `  <res label="sys_noAnswerSelected">Vennligst skyv håndtaket for å vurdere svaret ditt.</res>
+  <res label="sys_notWhole">Vennligst skyv glidebryteren for å vurdere svaret ditt.</res>`;
+
+let resbuttonratingNO = `  <res label="sys_notWhole">Velg et svar.</res>`;
+
+let resbuttonPL = `  <res label="sys_check-error-atLeast-plur-column">Proszę wybrać co najmniej \$\(count\) odpowiedzi \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Proszę wybrać co najmniej \$\(count\) odpowiedzi \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Proszę wybrać maksymalnie \$\(count\) odpowiedzi \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Proszę wybrać dokładnie \$\(count\) odpowiedzi \(wybrałeś \$\(actual\)\).</res>`;
+
+let rescardsortPL = `  <res label="sys_noAnswerSelected">Proszę wybrać odpowiedź dla tej karty.</res>
+  <res label="sys_check-error">Proszę wybrać odpowiedź \$\(which\) \$\(count\) dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Proszę wybrać co najmniej \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Proszę wybrać co najmniej \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Proszę wybrać co najmniej \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Proszę wybrać co najmniej \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Proszę wybrać maksymalnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Proszę wybrać maksymalnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Proszę wybrać maksymalnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Proszę wybrać maksymalnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Proszę wybrać dokładnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Proszę wybrać dokładnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Proszę wybrać dokładnie \$\(count\) odpowiedź dla tej karty \(wybrałeś \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Proszę wybrać dokładnie \$\(count\) odpowiedzi dla tej karty \(wybrałeś \$\(actual\)\).</res>`;
+
+let ressliderPL = `  <res label="sys_noAnswerSelected">Proszę przesunąć suwak, aby ocenić swoją odpowiedź.</res>
+  <res label="sys_notWhole">Proszę przesunąć suwak, aby ocenić swoją odpowiedź.</res>`;
+
+let resbuttonratingPL = `  <res label="sys_notWhole">Proszę wybrać odpowiedź.</res>`;
+
+let resbuttonSW = `  <res label="sys_check-error-atLeast-plur-column">Välj minst \$\(count\) svar \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Välj minst \$\(count\) svar \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Välj högst \$\(count\) svar \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Välj exakt \$\(count\) svar \(du valde \$\(actual\)\).</res>`;
+
+let rescardsortSW = `  <res label="sys_noAnswerSelected">Välj ett svar för detta kort.</res>
+  <res label="sys_check-error">Välj \$\(which\) \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-column">Välj minst \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-plur-row">Välj minst \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-column">Välj minst \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atLeast-sing-row">Välj minst \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-column">Välj högst \$\(count\) svar för detta kort \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-plur-row">Välj högst \$\(count\) svar för detta kort \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-column">Välj högst \$\(count\) svar för detta kort \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-atMost-sing-row">Välj högst \$\(count\) svar för detta kort \(du har valt \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-column">Välj exakt \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-plur-row">Välj exakt \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-column">Välj exakt \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>
+  <res label="sys_check-error-exactly-sing-row">Välj exakt \$\(count\) svar för detta kort \(du valde \$\(actual\)\).</res>`;
+
+let ressliderSW = `  <res label="sys_noAnswerSelected">Skjut reglaget för att betygsätta ditt svar.</res>
+  <res label="sys_notWhole">Dra i skjutreglaget för att betygsätta ditt svar.</res>`;
+
+let resbuttonratingSW = `  <res label="sys_notWhole">Välj ett svar.</res>`;
+
+
+
 let formattingSnippets = [
+["maxDiffTemplate", maxdiffIndices, "MaxDiff - Indices Method Template"],
+["conjointTemplate", conjoint, "Conjoint Template"],
+["res.buttonSW", resbuttonSW, "SWEDISH - button resource tags template"],
+["res.cardsortSW", rescardsortSW, "SWEDISH - card sort resource tags template"],
+["res.sliderSW", ressliderSW, "SWEDISH - slider resource tags template"],
+["res.buttonratingSW", resbuttonratingSW, "SWEDISH - button rating resource tags template"],
+["res.buttonPL", resbuttonPL, "POLISH - button resource tags template"],
+["res.cardsortPL", rescardsortPL, "POLISH - card sort resource tags template"],
+["res.sliderPL", ressliderPL, "POLISH - slider resource tags template"],
+["res.buttonratingPL", resbuttonratingPL, "POLISH - button rating resource tags template"],
+["res.buttonNO", resbuttonNO, "NORWEGIAN - button resource tags template"],
+["res.cardsortNO", rescardsortNO, "NORWEGIAN - card sort resource tags template"],
+["res.sliderNO", ressliderNO, "NORWEGIAN - slider resource tags template"],
+["res.buttonratingNO", resbuttonratingNO, "NORWEGIAN - button rating resource tags template"],
+["res.buttonFI", resbuttonFI, "FINISH - button resource tags template"],
+["res.cardsortFI", rescardsortFI, "FINISH - card sort resource tags template"],
+["res.sliderFI", ressliderFI, "FINISH - slider resource tags template"],
+["res.buttonratingFI", resbuttonratingFI, "FINISH - button rating resource tags template"],
+["res.buttonNL", resbuttonNL, "DUTCH - button resource tags template"],
+["res.cardsortNL", rescardsortNL, "DUTCH - card sort resource tags template"],
+["res.sliderNL", ressliderNL, "DUTCH - slider resource tags template"],
+["res.buttonratingNL", resbuttonratingNL, "DUTCH - button rating resource tags template"],
+["res.buttonDK", resbuttonDK, "DANISH - button resource tags template"],
+["res.cardsortDK", rescardsortDK, "DANISH - card sort resource tags template"],
+["res.sliderDK", ressliderDK, "DANISH - slider resource tags template"],
+["res.buttonratingDK", resbuttonratingDK, "DANISH - button rating resource tags template"],
+["res.buttonIT", resbuttonIT, "ITALIAN - button resource tags template"],
+["res.cardsortIT", rescardsortIT, "ITALIAN - card sort resource tags template"],
+["res.sliderIT", ressliderIT, "ITALIAN - slider resource tags template"],
+["res.buttonratingIT", resbuttonratingIT, "ITALIAN - button rating resource tags template"],
+["res.buttonES", resbuttonES, "SPAINISH - button resource tags template"],
+["res.cardsortES", rescardsortES, "SPAINISH - card sort resource tags template"],
+["res.sliderES", ressliderES, "SPAINISH - slider resource tags template"],
+["res.buttonratingES", resbuttonratingES, "SPAINISH - button rating resource tags template"],
+["res.buttonDE", resbuttonDE, "GERMAN - button resource tags template"],
+["res.cardsortDE", rescardsortDE, "GERMAN - card sort resource tags template"],
+["res.sliderDE", ressliderDE, "GERMAN - slider resource tags template"],
+["res.buttonratingDE", resbuttonratingDE, "GERMAN - button rating resource tags template"],
+["res.buttonFR", resbuttonFR, "FRENCH - button resource tags template"],
+["res.cardsortFR", rescardsortFR, "FRENCH - card sort resource tags template"],
+["res.sliderFR", ressliderFR, "FRENCH - slider resource tags template"],
+["res.buttonratingFR", resbuttonratingFR, "FRENCH - button rating resource tags template"],
 ["groupElementPython", groupRow, "Group Rows Function, uses python to group rows together."],
 ["limitNumber", limitNumberModule, "Limit Number Module, block number after the specified value.  \nDefault: Blocks 2 Numbers  \nNote: Ensure Question is a number question of the page as some survey disguise number question as text question on the survey page."],
 ["pagetime", timeallPages, "Adds a virtual float question which add a timespent value for all pages on the survey."],
@@ -953,6 +1780,7 @@ let formattingSnippets = [
 ["exec", "<exec>\n${0}\n</exec>", "exec Tag"],
 ["when", "when=\"${1|survey,started,init,virtualInit,finished,returning,verified,virtual,flow,sqlTransfer,sqlTransferInit,submit,autosaveRestored|}\"${0}", "Used inside the \\\<exec\\\> attribute, defines how, where and when the exec is called"],
 ["pipe", "\[pipe: ${1:Q1}\]${0}", "xml pipe"],
+["rel", "\[rel ${1:image.jpg}\]${0}", "rel pipe"],
 ["suspend", "<suspend/>\n${0}", "suspend/page break tag"],
 ["su", "<suspend/>\n${0}", "suspend/page break tag"],
 ["disabled", "disabled=\"${1:0}\"${0}", "Disable and hide the element in the survey"],
@@ -1074,7 +1902,7 @@ let formattingSnippets = [
 ["rightLegend", "rightLegend=\"${1:rightColName}\"${0}", "The rightLegend attribute on a per-row basis specifies alternative text for the right row legend."],
 ["rowShuffle", "rowShuffle=\"${1|flip,rflip,rotate,rrotate|}\"${0}", "The rowShuffle attribute allows you to specify the randomization order of \\\<row\\\> elements."],
 ["showSource", "showSource=\"${1:1}\"${0}", "The showSource attribute allows you to view the source code of the question."],
-["shuffle", "shuffle=\"${1|none,rows,cols,rows\\,cols,choices,groups,rows\\,groups,cols\\,groups,choices\\,groups|}\"${0}", "The shuffle attribute allows you to specify which of the question's elements to randomize."],
+["shuffle", "shuffle=\"${1|none,rows,cols,rows\\,cols,choices,groups,rows\\,groups,cols\\,groups,choices\\,groups,rows\\,only_groups,cols\\,only_groups,choices\\,only_groups|}\"${0}", "The shuffle attribute allows you to specify which of the question's elements to randomize."],
 ["shuffleBy", "shuffleBy=\"${1:Q1}\"${0}", "The shuffleBy attribute allows you to specify another question's label to randomize the current question's elements by."],
 ["sort", "sort=\"${1|none,rows,cols,choices,desc,asc,percentages|}\"${0}", "The sort attribute allows you to specify the sort order of the results in the report. If sort=\"rows,percentages,desc\" is specified, the order of the results will be sorted based on the row's percentage values instead of the count values and in descending order. If sort=\"choices,asc\" is specified, the question's choices will be sorted based on the count values in ascending order."],
 ["sortChoices", "sortChoices=\"${1|none,asc,desc,survey,report|}\"${0}", "The sortChoices attribute allows you to specify the order in which to display the <choice> elements. If sortChoices=\"asc,report,survey\" is specified, the choices will appear sorted alphabetically in ascending order for both the report and survey view of the question."],
@@ -1153,6 +1981,7 @@ let formattingSnippets = [
 ["loop", "<loop label=\"${1:loopName}\" vars=\"${2:var1}\">\n\t<block label=\"${3:blocLoopName}\">\n\t\t\<suspend\/\>\n${0}\n\t\t\<suspend\/\>\n\t</block>\n</loop>", "The \\\<loop\\\> element is used to cycle through a series of survey elements."],
 ["looprow", "<looprow label=\"${1:1}\">${2}</looprow>${0}", "The \\\<looprow\\\> element is used to create an iteration in the loop."],
 ["loopvar", "<loopvar name=\"${1:var1}\">${2}</loopvar>${0}", "The \\\<loopvar\\\> element is used to create add a variable in the looprow."],
+["looppipe", "[loopvar: ${1|label,var1,var2,var3|}]${0}", "The loopvar pipe syntax is used inside the loop question to differentiate between looprows."],
 ["pipetag", "<pipe label=\"${1:pipeLabel}\" ${2:capture=\"labelInReport\"} title=${3:\"titleText\"}>${0}</pipe>", "The <pipe> element is used to display information conditionally. \nTag Version"],
 ["pipedetail", "[pipe: ${1:Q1}${2| lower, upper, title, capitalize|}]${0}", "The [pipe : QuestionName] element is used to display information conditionally. \nInline Version"],
 ["case", "<case label=\"${1:case1}\" cond=\"${2:Q1.r1}\">${2: Some Text}</case>${0}", "The <case> element refer to a row inside a <pipe> element that you can pipe conditions to."],

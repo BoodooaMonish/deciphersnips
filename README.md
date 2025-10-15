@@ -662,24 +662,81 @@ These custom snippets were added according to the most used reusable xml codes f
 | -------- | -------------- | ----------------- |
 | `groupElementPython` |  ---  | Group Rows Function, uses python to group rows together.|
 | `limitNumber` |  ---  | Limit Number Module, block number after the specified value.  <br>Default: Blocks 2 Numbers  <br>Note: Ensure Question is a number question of the page as some survey disguise number question as text question on the survey page.|
-| `pagetime` |  ---  | Adds a virtual float question which add a timespent value for all pages on the survey.|
-| `pagetimeblock` |  ---  | Adds a template block for calculating the timespent between a list of questions.|
-| `supportTagFR` |  ---  | Adds the support tag for the FR cluster.|
+| `continueafter` |  ---  | Continue After Exec, uses python to disable the continue button for a certain amount of time and then re-enables it.  <br>Support for multi languages are already included.|
 | `removeAutoWidth` | ss:questionClassNames="skipAutosize" | Removes the auto width on grid type questions.  <br>Can be optionally combined with surveyDisplay="desktop" and ss:listDisplay="0".|
 | `zoomMobileMeta` |  ---  | The script tag that will enable native zoom on mobile.|
+| -------- | -------------- | ----------------- |
+| `pagetime` |  ---  | Adds a virtual float question which add a timespent value for all pages on the survey.|
+| `pagetimeblock` |  ---  | Adds a template block for calculating the timespent between a list of questions.|
 | `blockTranslation` |  ---  | The script tag that will block the auto translation of a page.|
+| -------- | -------------- | ----------------- |
+| `supportTagFR` |  ---  | Adds the support tag for the FR cluster.|
 | `confidentialityblock` |  ---  | The Level 1 confidentiality module.  <br>Normally used on FR projects.|
-| `continueafter` |  ---  | Continue After Exec, uses python to disable the continue button for a certain amount of time and then re-enables it.  <br>Support for multi languages are already included.|
 | `zoomImg` |  ---  | My Zoom Module  <br>Add a zoom feature on click to all image with the class name of 'banner'.|
 | `emojifr` |  ---  | Adds the emoji exec element. Normally used on french projects.|
 | `frValidate` |  ---  | Add the basic validation template used on my FR projects.|
 | `codepostalfr` |  ---  | Code Postal for France Cluster (includes DOM term)|
 | `codepostalfrbva` |  ---  | Code Postal BVA for France Cluster (includes DOM term)|
+| -------- | -------------- | ----------------- |
 | `samplesourceTemplate` | --- | Samplesource Template|
 | `base` |  ---  | Project Base Template - Used on every start of a project. <br>Contains all disclaimers, a data clearing logic and a total quota|
 | `survey` | --- | Base Survey Template| 
 | `bariBase` | --- | Bari Base Template: <br>Contains all bari js codes and duplicates check|
 | `age` | --- | AGE Recode (ageQuestion = Age Question, recodeQuestion = the recode question for the age range, agerange = a list of age ranges) |
+| -------- | -------------- | ----------------- |
+| `res.buttonFR` | --- | FRENCH - button resource tags template |
+| `res.cardsortFR` | --- | FRENCH - card sort resource tags template |
+| `res.sliderFR` | --- | FRENCH - slider resource tags template |
+| `res.buttonratingFR` | --- | FRENCH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonDE` | --- | GERMAN - button resource tags template |
+| `res.cardsortDE` | --- | GERMAN - card sort resource tags template |
+| `res.sliderDE` | --- | GERMAN - slider resource tags template |
+| `res.buttonratingDE` | --- | GERMAN - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonES` | --- | SPAINISH - button resource tags template |
+| `res.cardsortES` | --- | SPAINISH - card sort resource tags template |
+| `res.sliderES` | --- | SPAINISH - slider resource tags template |
+| `res.buttonratingES` | --- | SPAINISH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonIT` | --- | ITALIAN - button resource tags template |
+| `res.cardsortIT` | --- | ITALIAN - card sort resource tags template |
+| `res.sliderIT` | --- | ITALIAN - slider resource tags template |
+| `res.buttonratingIT` | --- | ITALIAN - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonDK` | --- | DANISH - button resource tags template |
+| `res.cardsortDK` | --- | DANISH - card sort resource tags template |
+| `res.sliderDK` | --- | DANISH - slider resource tags template |
+| `res.buttonratingDK` | --- | DANISH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonNL` | --- | DUTCH - button resource tags template |
+| `res.cardsortNL` | --- | DUTCH - card sort resource tags template |
+| `res.sliderNL` | --- | DUTCH - slider resource tags template |
+| `res.buttonratingNL` | --- | DUTCH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonFI` | --- | FINISH - button resource tags template |
+| `res.cardsortFI` | --- | FINISH - card sort resource tags template |
+| `res.sliderFI` | --- | FINISH - slider resource tags template |
+| `res.buttonratingFI` | --- | FINISH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonNO` | --- | NORWEGIAN - button resource tags template |
+| `res.cardsortNO` | --- | NORWEGIAN - card sort resource tags template |
+| `res.sliderNO` | --- | NORWEGIAN - slider resource tags template |
+| `res.buttonratingNO` | --- | NORWEGIAN - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonPL` | --- | POLISH - button resource tags template |
+| `res.cardsortPL` | --- | POLISH - card sort resource tags template |
+| `res.sliderPL` | --- | POLISH - slider resource tags template |
+| `res.buttonratingPL` | --- | POLISH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `res.buttonSW` | --- | SWEDISH - button resource tags template |
+| `res.cardsortSW` | --- | SWEDISH - card sort resource tags template |
+| `res.sliderSW` | --- | SWEDISH - slider resource tags template |
+| `res.buttonratingSW` | --- | SWEDISH - button rating resource tags template |
+| -------- | -------------- | ----------------- |
+| `maxDiffTemplate` | --- | MaxDiff - Indices Method Template |
+| `conjointTemplate` | --- | Conjoint Template |
+
 
 ## Unsorted Attributes Snippets
 
@@ -694,6 +751,8 @@ These custom snippets were added according to the most used reusable xml codes f
 | `exec` | <exec\><br><br></exec\> | exec Tag|
 | `when` | when="survey,<br>started,<br>init,<br>virtualInit,<br>finished,<br>returning,<br>verified,<br>virtual,<br>flow,<br>sqlTransfer,<br>sqlTransferInit,<br>submit,<br>autosaveRestored" | Used inside the <exec\> attribute, defines how, where and when the exec is called |
 | `pipe` | [pipe: Q1] | xml pipe|
+| `rel` | [rel image.jpg] | rel pipe|
+|`looppipe` | [loopvar: label,var1,var2,var3] |The loopvar pipe syntax is used inside the loop question to differentiate between looprows.|
 | `pipetag` | <pipe label="pipeLabel" capture="labelInReport" title="titleText"\></pipe\> | The <pipe\> element is used to display information conditionally. <br>Tag Version|
 | `pipedetailed` | [pipe: Q1 lower,upper,title,capitalize] | The [pipe : QuestionName] element is used to display information conditionally. <br>Inline Version|
 | `case` | <case label="case1" cond="Q1.r1"\>Some Text</case\> | The <case\> element refer to a row inside a <pipe\> element that you can pipe conditions to.|
@@ -851,7 +910,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `rightLegend` | rightLegend="rightColName" | The rightLegend attribute on a per-row basis specifies alternative text for the right row legend.|
 | `rowShuffle` | rowShuffle="flip,rflip,rotate,rrotate" | The rowShuffle attribute allows you to specify the randomization order of <row\> elements.|
 | `showSource` | showSource="1" | The showSource attribute allows you to view the source code of the question.|
-| `shuffle` | shuffle="none,rows,cols,rows,choices,groups" | The shuffle attribute allows you to specify which of the question's elements to randomize.|
+| `shuffle` | shuffle="none,rows,cols,rows,choices,groups,only_groups" | The shuffle attribute allows you to specify which of the question's elements to randomize.|
 | `shuffleBy` | shuffleBy="Q1" | The shuffleBy attribute allows you to specify another question's label to randomize the current question's elements by.|
 | `sort` | sort="none,rows,cols,choices,desc,asc,percentages" | The sort attribute allows you to specify the sort order of the results in the report. <br>If sort="rows,percentages,desc" is specified, the order of the results will be sorted based on the row's percentage values instead of the count values and in descending order. <br>If sort="choices,asc" is specified, the question's choices will be sorted based on the count values in ascending order.|
 | `sortChoices` | sortChoices="none,asc,desc,survey,report" | The sortChoices attribute allows you to specify the order in which to display the <choice\> elements. <br>If sortChoices="asc,report,survey" is specified, the choices will appear sorted alphabetically in ascending order for both the report and survey view of the question.|
