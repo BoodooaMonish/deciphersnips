@@ -774,7 +774,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `commentnl` | <comment\>Eén antwoord mogelijk,Meerdere antwoorden mogelijk</comment\> | The comment attribute allows you to specify additional text to display beneath the question's title attribute. This is the Dutch version|
 | -------- | -------------- | ----------------- |
 | `note` | <note\>COMMENT</note\> | The <note\> element can be used to leave notes in a survey that are only displayed in the survey builder and the code itself.|
-| `block` | <block label="b1"\><br><br></block\> | The <block\> tag is a great way to create sections in your survey. If you have a large number of questions that should be seen by the same type of participants, instead of writing a condition on each question, you can wrap the questions in a <block\> with the condition.|
+| `block` | <block label="b1" builder:title="block name"\><br><br></block\> | The <block\> tag is a great way to create sections in your survey. If you have a large number of questions that should be seen by the same type of participants, instead of writing a condition on each question, you can wrap the questions in a <block\> with the condition.|
 | `noanswer` | <noanswer label="r99"\>Prefer not to say</noanswer\> | The <noanswer\> element can be added to any question to create a "not applicable" response option.|
 | `randomizeChildren` | randomizeChildren="1" | The randomizeChildren attribute is a boolean value used to randomize the contents of the block.|
 
