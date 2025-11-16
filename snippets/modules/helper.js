@@ -251,8 +251,8 @@ function createElements(elementType, labelId, inp, skipCheck = 0) {
 
 	input.forEach((x) => {
 
-		let expCode = /^([0-9]{1,4}|[A-Za-z]{1}|[A-Za-z0-9]{1,10}[0-9_]{1,})(\s|\.|\/|\)|\\)(.+)/;
-		let expCodeExtra = /^([A-Za-z0-9]{1,})(\s|\.|\/|\)|\\)(.+)/;
+		let expCode = /^([0-9]{1,4}|[A-Za-z]{1}|[A-Za-z0-9_]{1,}[0-9_]{1,})(\s|\.|\/|\)|\\)(.+)/;
+		let expCodeExtra = /^([A-Za-z0-9]{1,}[A-Za-z0-9_]{1,})(\s|\.|\/|\)|\\)(.+)/;
 
 		let expression = x.match(expCode);
 		let expressionExtra = x.match(expCodeExtra);
