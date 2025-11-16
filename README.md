@@ -679,6 +679,7 @@ These custom snippets were added according to the most used reusable xml codes f
 | `codepostalfrbva` |  ---  | Code Postal BVA for France Cluster (includes DOM term)|
 | -------- | -------------- | ----------------- |
 | `samplesourceTemplate` | --- | Samplesource Template|
+| `encryptsamplesource` | keyring="BilendiKeyring" sign="in,out" | External Encryption Module - Developed to encrypt ingoings and outgoings of records |
 | `base` |  ---  | Project Base Template - Used on every start of a project. <br>Contains all disclaimers, a data clearing logic and a total quota|
 | `survey` | --- | Base Survey Template| 
 | `bariBase` | --- | Bari Base Template: <br>Contains all bari js codes and duplicates check|
