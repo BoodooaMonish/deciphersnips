@@ -1,8 +1,8 @@
 {
   "name": "deciphersnips",
-  "displayName": "Decipher BS Snippets",
-  "description": "Custom XML Snippets for Decipher",
-  "version": "1.0.6",
+  "displayName": "Monish Snippets",
+  "description": "Monish XML Snippets",
+  "version": "1.0.7",
   "publisher": "Boodooa-Monish",
   "repository": "https://github.com/BoodooaMonish/deciphersnips",
   "icon": "logo.png",

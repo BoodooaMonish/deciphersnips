@@ -1,18 +1,18 @@
 <p align="center">
-    <img src="./logo.png" alt="Decipher Snippets logo" width="150">
+    <img src="./logo.png" alt="Snippets logo" width="150">
 </p>
 
 <h1 align="center">XML Snippets for the BS Scripting Team</h1>
 
-A VScode Extension inspired by Decipher's Sublime Text XML snippets and completely designed from the ground up for a better scripting workflow and future proof capabilities.
+A VScode Extension inspired by Sublime Text XML snippets and completely designed from the ground up for a better scripting workflow and future proof capabilities.
 
 <blockquote class="warn"><h4>📝 Disclaimer</h4>
-<p>This extension requires a basic knowledge on how XML is used to create survey questions on decipher and how tags and attributes are added to those questions to customize them.<br/>If you want to explore more on these XML topics, check out the <a href="https://forstasurveys.zendesk.com/hc/en-us/categories/5915479218331-XML-Programming">decipher's knowledge base</a>.</p>
+<p>This extension requires a basic knowledge on how XML is used to create survey questions and how tags and attributes are added to those questions to customize them.<br/>If you want to explore more on these XML topics, check out the <a href="https://forstasurveys.zendesk.com/hc/en-us/categories/5915479218331-XML-Programming">knowledge base</a>.</p>
 </blockquote>
 
 ### Features
 
-This extension includes <u>almost</u> all of decipher's questions, tags and attributes that is found on their knowledge base.
+This extension includes <u>almost</u> all of questions, tags and attributes that is found on their knowledge base.
 
 - Questions are called using commands from either keyboard shortcuts or from the vscode command palette.
 - Tags and Attributes are called using the VScode autocompletion tool, meaning when you type an attribute's name, a dropdown menu will appear showing choices inwhich you can select to add the attributes you want faster.
