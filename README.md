@@ -2,7 +2,7 @@
     <img src="./logo.png" alt="Snippets logo" width="150">
 </p>
 
-<h1 align="center">XML Snippets for the BS Scripting Team</h1>
+<h1 align="center">XML Snippets</h1>
 
 A VScode Extension inspired by Sublime Text XML snippets and completely designed from the ground up for a better scripting workflow and future proof capabilities.
 
